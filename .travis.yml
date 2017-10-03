@@ -1,0 +1,16 @@
+sudo: required
+
+services:
+  - docker
+
+branches:
+  only:
+    - master
+    - branch1
+
+install:
+  - docker-compose -f docker-compose.yml build
+
+script:
+  - case $TRAVIS_BRANCH in master) project=project1;; branch1) project=project2;; esac
+  - docker-compose -f docker-compose.yml up
